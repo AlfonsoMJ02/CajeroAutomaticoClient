@@ -1,0 +1,114 @@
+<div class="atm-container">
+  <div class="atm-machine">
+    <div class="atm-header">
+      <h1>{{ banco }}</h1>
+
+      <p>Cajero Automático</p>
+    </div>
+
+    <div class="atm-screen">
+      <!-- LOGIN -->
+
+      <div *ngIf="!sesionIniciada">
+        <h2>Bienvenido</h2>
+
+        <p class="mb-4">Inserta tu tarjeta</p>
+
+        <div class="mb-3">
+          <input
+            type="text"
+            class="form-control atm-input"
+            placeholder="Número de tarjeta"
+            [(ngModel)]="numeroTarjeta"
+          />
+        </div>
+
+        <div class="mb-4">
+          <input
+            type="password"
+            class="form-control atm-input"
+            placeholder="NIP"
+            [(ngModel)]="nip"
+          />
+        </div>
+
+        <button class="btn ingresar-btn w-100" (click)="ingresar()">Ingresar</button>
+      </div>
+
+      <!-- MENU ATM -->
+
+      <!-- MENU ATM -->
+
+      <div *ngIf="sesionIniciada">
+        <!-- MENU PRINCIPAL -->
+
+        <div *ngIf="!vistaRetiro">
+          <h2>Bienvenido</h2>
+
+          <p>Selecciona una operación</p>
+
+          <div class="d-grid gap-3 mt-4">
+            <button class="btn atm-btn saldo-btn">Consultar Saldo</button>
+
+            <button class="btn atm-btn retiro-btn" (click)="abrirRetiro()">Retirar Dinero</button>
+          </div>
+        </div>
+
+        <!-- VISTA RETIRO -->
+
+        <div *ngIf="vistaRetiro">
+          <div class="d-flex justify-content-start mb-4">
+            <button class="btn regresar-btn" (click)="regresarMenu()">← Regresar</button>
+          </div>
+
+          <h2 class="mb-3">Retirar Dinero</h2>
+
+          <p class="mb-4">Denominaciones disponibles en este cajero</p>
+
+          <!-- BILLETES -->
+
+          <!-- BILLETES -->
+
+          <div class="mb-4">
+            <h4 class="titulo-billetes">💵 Billetes</h4>
+
+            <div class="denominaciones-container">
+              <div class="denominacion-card billete" *ngFor="let billete of billetes">
+                ${{ billete.denominacion }}
+              </div>
+            </div>
+          </div>
+
+          <!-- MONEDAS -->
+
+          <div class="mb-4">
+            <h4 class="titulo-monedas">🪙 Monedas</h4>
+
+            <div class="denominaciones-container">
+              <div class="denominacion-card moneda" *ngFor="let moneda of monedas">
+                ${{ moneda.denominacion }}
+              </div>
+            </div>
+          </div>
+
+          <!-- RETIRO -->
+
+          <div class="retiro-box">
+            <h4 class="mb-3">¿Cuánto deseas retirar?</h4>
+
+            <div class="d-flex gap-3">
+              <input
+                type="number"
+                class="form-control retiro-input"
+                placeholder="Ingresa la cantidad"
+                [(ngModel)]="cantidadRetiro"
+              />
+
+              <button class="btn retirar-btn-final" (click)="retirar()">Retirar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

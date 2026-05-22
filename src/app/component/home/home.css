@@ -1,0 +1,87 @@
+.home-container{
+    height: 100vh;
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.atm-card{
+    width: 420px;
+    background-color: #111827;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0px 0px 25px rgba(0,0,0,0.5);
+    text-align: center;
+}
+
+.titulo{
+    color: white;
+    font-size: 38px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.subtitulo{
+    color: #cbd5e1;
+    margin-bottom: 30px;
+    font-size: 17px;
+}
+
+.banco-btn{
+    height: 65px;
+    font-size: 22px;
+    font-weight: bold;
+    border-radius: 15px;
+    transition: 0.3s;
+    border: none;
+    letter-spacing: 1px;
+}
+
+.banco-btn:hover{
+    transform: scale(1.05);
+}
+
+/* BBVA */
+
+.bbva{
+    background-color: #004481;
+    color: white;
+}
+
+.bbva:hover{
+    background-color: #0059a8;
+}
+
+/* COPPEL */
+
+.coppel{
+    background-color: #ffdd00;
+    color: #0033a0;
+}
+
+.coppel:hover{
+    background-color: #ffe74d;
+}
+
+/* BANAMEX */
+
+.banamex{
+    background-color: #1f4fa3;
+    color: white;
+}
+
+.banamex:hover{
+    background-color: #2b63c6;
+}
+
+/* SANTANDER */
+
+.santander{
+    background-color: #ec0000;
+    color: white;
+}
+
+.santander:hover{
+    background-color: #ff1f1f;
+}

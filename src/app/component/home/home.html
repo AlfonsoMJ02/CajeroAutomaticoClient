@@ -1,0 +1,39 @@
+<div class="home-container">
+
+    <div class="atm-card">
+
+        <h1 class="titulo">
+            Cajeros Automáticos
+        </h1>
+
+        <p class="subtitulo">
+            Selecciona tu banco
+        </p>
+
+        <div class="d-grid gap-3">
+
+            <button class="btn banco-btn bbva"
+                (click)="irCajero('BBVA')">
+                BBVA
+            </button>
+
+            <button class="btn banco-btn coppel"
+                (click)="irCajero('Coppel')">
+                Coppel
+            </button>
+
+            <button class="btn banco-btn banamex"
+                (click)="irCajero('Banamex')">
+                Banamex
+            </button>
+
+            <button class="btn banco-btn santander"
+                (click)="irCajero('Santander')">
+                Santander
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
