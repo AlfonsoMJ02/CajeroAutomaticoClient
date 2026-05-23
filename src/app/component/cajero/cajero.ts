@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { Auth } from '../../service/auth';
 
 @Component({
   selector: 'app-cajero',
@@ -40,7 +42,9 @@ export class Cajero implements OnInit{
   ];
 
   constructor(
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router,
+    private auth: Auth
   ) {}
 
   ngOnInit(): void {
@@ -48,9 +52,23 @@ export class Cajero implements OnInit{
   }
 
   ingresar(){
-    if(this.numeroTarjeta != '' && this.nip != ''){
-      this.sesionIniciada = true;
+    const loginData = {
+      numeroTarjeta: this.numeroTarjeta,
+      nip: Number(this.nip)
     }
+    this.auth.login(loginData).subscribe({
+      next: (response) => {
+        console.log(response);
+
+        this.sesionIniciada = true;
+      },
+      error: (error) => {
+        console.log(error);
+
+        alert(error.error.errorMessage);
+        this.sesionIniciada = false;
+      }
+    })
   }
 
   abrirRetiro(){
@@ -59,6 +77,10 @@ export class Cajero implements OnInit{
 
   regresarMenu(){
     this.vistaRetiro = false;
+  }
+
+  abrirCuenta(){
+    this.router.navigate(['/abrir-cuenta', this.banco]);
   }
 
   retirar(){

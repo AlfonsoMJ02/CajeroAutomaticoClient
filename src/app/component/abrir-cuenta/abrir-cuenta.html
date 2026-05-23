@@ -1,0 +1,85 @@
+<div class="atm-container">
+  <div class="registro-card">
+    <div class="atm-header">
+      <h1>{{ banco }}</h1>
+
+      <p>Abrir Cuenta Bancaria</p>
+    </div>
+
+    <div class="atm-screen">
+      <div class="d-flex justify-content-between mb-2">
+        <button class="btn regresar-btn" (click)="regresar()">← Regresar</button>
+      </div>
+
+      <h2>Registro de Usuario</h2>
+
+      <div class="row mt-4">
+        <!-- NOMBRE -->
+
+        <div class="col-md-6 mb-2">
+          <label class="atm-label"> Nombre </label>
+
+          <input type="text" class="form-control atm-input" [(ngModel)]="usuario.nombre" />
+        </div>
+
+        <!-- APELLIDO PATERNO -->
+
+        <div class="col-md-6 mb-2">
+          <label class="atm-label"> Apellido Paterno </label>
+
+          <input type="text" class="form-control atm-input" [(ngModel)]="usuario.apellidoPaterno" />
+        </div>
+
+        <!-- APELLIDO MATERNO -->
+
+        <div class="col-md-6 mb-2">
+          <label class="atm-label"> Apellido Materno </label>
+
+          <input type="text" class="form-control atm-input" [(ngModel)]="usuario.apellidoMaterno" />
+        </div>
+
+        <!-- CURP -->
+
+        <div class="col-md-6 mb-2">
+          <label class="atm-label"> CURP </label>
+
+          <input type="text" class="form-control atm-input" [(ngModel)]="usuario.curp" />
+        </div>
+
+        <!-- FECHA -->
+
+        <div class="col-md-6 mb-2">
+          <label class="atm-label"> Fecha de Nacimiento </label>
+
+          <input type="date" class="form-control atm-input" [(ngModel)]="usuario.fechaNacimiento" />
+        </div>
+
+        <!-- EMAIL -->
+
+        <div class="col-md-6 mb-2">
+          <label class="atm-label"> Correo Electrónico </label>
+
+          <input type="email" class="form-control atm-input" [(ngModel)]="usuario.email" />
+        </div>
+
+        <!-- PASSWORD -->
+
+        <div class="col-md-6 mb-2">
+          <label class="atm-label"> Contraseña </label>
+
+          <input type="password" class="form-control atm-input" [(ngModel)]="usuario.password" />
+        </div>
+
+        <!-- TELEFONO -->
+
+        <div class="col-md-6 mb-4">
+          <label class="atm-label"> Teléfono </label>
+
+          <input type="text" class="form-control atm-input" [(ngModel)]="usuario.telefono" />
+        </div>
+      </div>
+
+      <button class="btn registrar-btn w-100" (click)="registrar()">Crear Cuenta</button>
+    </div>
+  </div>
+</div>
