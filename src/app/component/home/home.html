@@ -1,39 +1,18 @@
 <div class="home-container">
+  <div class="atm-card">
+    <h1 class="titulo">Cajeros Automáticos</h1>
 
-    <div class="atm-card">
+    <p class="subtitulo">Selecciona tu banco</p>
 
-        <h1 class="titulo">
-            Cajeros Automáticos
-        </h1>
-
-        <p class="subtitulo">
-            Selecciona tu banco
-        </p>
-
-        <div class="d-grid gap-3">
-
-            <button class="btn banco-btn bbva"
-                (click)="irCajero('BBVA')">
-                BBVA
-            </button>
-
-            <button class="btn banco-btn coppel"
-                (click)="irCajero('Coppel')">
-                Coppel
-            </button>
-
-            <button class="btn banco-btn banamex"
-                (click)="irCajero('Banamex')">
-                Banamex
-            </button>
-
-            <button class="btn banco-btn santander"
-                (click)="irCajero('Santander')">
-                Santander
-            </button>
-
-        </div>
-
+    <div class="d-grid gap-3">
+      <button
+        *ngFor="let banco of bancos"
+        class="btn banco-btn"
+        [ngClass]="obtenerClaseBanco(banco.nombre)"
+        (click)="irCajero(banco.nombre)"
+      >
+        {{ banco.nombre }}
+      </button>
     </div>
-
+  </div>
 </div>
