@@ -1,4 +1,5 @@
 export interface Login {
 numeroTarjeta: string,
-nip: number
+nip: number,
+banco: string
 }

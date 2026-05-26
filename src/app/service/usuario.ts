@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { UsuarioI } from '../interface/usuario';
+import { CuentaI } from '../interface/cuenta';
 import { environment } from '../environments/environment';
 
 
@@ -15,8 +15,8 @@ export class UsuarioS {
     private http: HttpClient
   ){}
 
-  registrar(usuario: UsuarioI): Observable<any> {
-     return this.http.post<any>(`${this.apiUrl}/Usuario`, usuario);
+  registrar(cuenta: CuentaI): Observable<any> {
+     return this.http.post<any>(`${this.apiUrl}/Usuario`, cuenta);
   }
 }
 

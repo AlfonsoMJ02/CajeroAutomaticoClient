@@ -6,9 +6,5 @@ export interface UsuarioI {
     fechaNacimiento: string,
     email: string,
     password: string,
-    telefono: string,
-
-    banco: {
-        idBanco:number
-    }
+    telefono: string
 }

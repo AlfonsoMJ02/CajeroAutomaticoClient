@@ -54,7 +54,8 @@ export class Cajero implements OnInit{
   ingresar(){
     const loginData = {
       numeroTarjeta: this.numeroTarjeta,
-      nip: Number(this.nip)
+      nip: Number(this.nip),
+      banco: this.banco
     }
     this.auth.login(loginData).subscribe({
       next: (response) => {

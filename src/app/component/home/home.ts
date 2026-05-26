@@ -21,8 +21,6 @@ export class Home implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log('Home iniciado');
-
     this.obtenerBancos();
   }
 
@@ -48,13 +46,11 @@ export class Home implements OnInit {
   obtenerBancos() {
     this.bancoService.getAll().subscribe({
       next: (response) => {
-        console.log('Respuesta:', response);
 
         this.bancos = response.objects;
 
         this.cdr.detectChanges();
 
-        console.log(this.bancos);
       },
       error: (error) => {
         console.log('Error:', error);
