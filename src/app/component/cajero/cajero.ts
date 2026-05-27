@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { Auth } from '../../service/auth';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-cajero',
@@ -22,7 +23,10 @@ export class Cajero implements OnInit{
   sesionIniciada: boolean = false;
 
   vistaRetiro: boolean = false;
+  vistaSaldo: boolean = false;
   cantidadRetiro: number = 0;
+  usuarioLogueado: any;
+  denominacionesRetiro:any[] = [];
 
   billetes = [
     {tipo: 'Billete', cantidad: 2, denominacion: 1000},
@@ -44,7 +48,8 @@ export class Cajero implements OnInit{
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private auth: Auth
+    private auth: Auth,
+    private cdr: ChangeDetectorRef 
   ) {}
 
   ngOnInit(): void {
@@ -59,15 +64,23 @@ export class Cajero implements OnInit{
     }
     this.auth.login(loginData).subscribe({
       next: (response) => {
-        console.log(response);
-
+        this.usuarioLogueado = response.object;
         this.sesionIniciada = true;
+        Swal.fire({
+          title: 'Ingresando a la cuenta',
+          icon: 'success',
+          timer: 1000,
+          showConfirmButton: false 
+        });
+        this.cdr.detectChanges();
       },
       error: (error) => {
-        console.log(error);
-
-        alert(error.error.errorMessage);
         this.sesionIniciada = false;
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: error.error.errorMessage
+        });
       }
     })
   }
@@ -78,6 +91,11 @@ export class Cajero implements OnInit{
 
   regresarMenu(){
     this.vistaRetiro = false;
+    this.vistaSaldo = false;
+  }
+
+  verSaldo(){
+    this.vistaSaldo = true;
   }
 
   abrirCuenta(){
@@ -85,6 +103,59 @@ export class Cajero implements OnInit{
   }
 
   retirar(){
-    console.log(this.cantidadRetiro);
+  if(this.cantidadRetiro <= 0){
+
+    Swal.fire({
+      icon:'warning',
+      title:'Cantidad inválida',
+      text:'Ingresa una cantidad válida'
+    });
+
+    return;
+  }
+
+  this.auth.retirar(this.cantidadRetiro).subscribe({
+
+    next:(response) => {
+
+      Swal.fire({
+        icon:'success',
+        title:'Retiro exitoso',
+        text:'El retiro se realizó correctamente'
+      });
+      this.cdr.detectChanges();
+      this.denominacionesRetiro = response.object;
+
+      this.usuarioLogueado.cuenta.saldo -= this.cantidadRetiro;
+
+      this.cantidadRetiro = 0;
+    },
+    error:(error) => {
+      console.log(error);
+      Swal.fire({
+        icon:'error',
+        title:'Oops...',
+        text:error?.error?.errorMessage || "Error del servidor"
+      });
+    }
+  });
+}
+
+  cerrarSesion(){
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: "Tu sesión actual se cerrará",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, cerrar sesión',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.sesionIniciada = false;
+        this.router.navigate(['/']);
+      }
+    });
   }
 }

@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { AbrirCuenta } from './abrir-cuenta';
 
 describe('AbrirCuenta', () => {

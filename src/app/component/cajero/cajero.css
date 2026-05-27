@@ -271,3 +271,86 @@
     transform: scale(1.03);
     background-color: #fde047;
 }
+
+.cerrar-sesion-btn{
+
+    background-color: #dc2626;
+    color: white;
+    border: none;
+    height: 34px;
+    padding: 0px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.cerrar-sesion-btn:hover{
+
+    background-color: #ef4444;
+
+    transform: scale(1.03);
+
+}
+
+.saldo-card{
+
+    background-color: #1f2937;
+
+    padding: 30px;
+
+    border-radius: 20px;
+
+    text-align: center;
+
+    box-shadow: 0px 0px 20px rgba(0,0,0,0.4);
+
+}
+
+.nombre-usuario{
+
+    color: white;
+
+    margin-bottom: 20px;
+
+    font-size: 24px;
+
+    font-weight: bold;
+
+}
+
+.saldo-label{
+
+    color: #9ca3af;
+
+    font-size: 18px;
+
+    margin-bottom: 10px;
+
+}
+
+.saldo-cantidad{
+
+    color: #22c55e;
+
+    font-size: 48px;
+
+    font-weight: bold;
+
+}
+
+.denominacion-entregada{
+
+    background-color:#1f2937;
+
+    color:white;
+
+    padding:10px;
+
+    border-radius:10px;
+
+    margin-bottom:10px;
+
+    font-weight:bold;
+
+}

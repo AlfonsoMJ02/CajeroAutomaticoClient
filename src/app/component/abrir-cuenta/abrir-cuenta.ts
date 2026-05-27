@@ -1,8 +1,7 @@
-import { assertInInjectionContext, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { UsuarioI } from '../../interface/usuario';
 import { CuentaI } from '../../interface/cuenta';
 import { UsuarioS } from '../../service/usuario';
 

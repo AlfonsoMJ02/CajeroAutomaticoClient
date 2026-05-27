@@ -22,4 +22,12 @@ export class Auth {
       }
     );
   } 
+
+  retirar(monto:number): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/Cajero/Retirar/${monto}`, 
+      {},
+    {
+      withCredentials: true
+    })
+  }
 }

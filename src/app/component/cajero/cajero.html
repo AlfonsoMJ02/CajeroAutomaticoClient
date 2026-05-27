@@ -46,21 +46,45 @@
 
       <!-- MENU ATM -->
 
-      <!-- MENU ATM -->
-
       <div *ngIf="sesionIniciada">
+
         <!-- MENU PRINCIPAL -->
 
-        <div *ngIf="!vistaRetiro">
-          <h2>Bienvenido</h2>
+        <div *ngIf="!vistaRetiro && !vistaSaldo">
+
+          <div class="d-flex justify-content-start mb-4">
+
+            <button
+              class="btn cerrar-sesion-btn"
+              (click)="cerrarSesion()">
+
+              ⏻ Cerrar Sesión
+
+            </button>
+
+          </div>
+
+          <h2>Bienvenido {{usuarioLogueado.cuenta.usuario.nombre}}</h2>
 
           <p>Selecciona una operación</p>
 
           <div class="d-grid gap-3 mt-4">
-            <button class="btn atm-btn saldo-btn">Consultar Saldo</button>
 
-            <button class="btn atm-btn retiro-btn" (click)="abrirRetiro()">Retirar Dinero</button>
+            <button class="btn atm-btn saldo-btn"
+              (click)="verSaldo()">
+              Consultar Saldo
+            </button>
+
+            <button
+              class="btn atm-btn retiro-btn"
+              (click)="abrirRetiro()">
+
+              Retirar Dinero
+
+            </button>
+
           </div>
+
         </div>
 
         <!-- VISTA RETIRO -->
@@ -73,8 +97,6 @@
           <h2 class="mb-3">Retirar Dinero</h2>
 
           <p class="mb-4">Denominaciones disponibles en este cajero</p>
-
-          <!-- BILLETES -->
 
           <!-- BILLETES -->
 
@@ -114,10 +136,49 @@
               />
 
               <button class="btn retirar-btn-final" (click)="retirar()">Retirar</button>
+              <div *ngIf="denominacionesRetiro.length > 0"
+                    class="mt-4">
+
+                    <h4>Denominaciones entregadas</h4>
+
+                    <div
+                      *ngFor="let d of denominacionesRetiro"
+                      class="denominacion-entregada">
+
+                        {{d.cantidad}} x ${{d.valor}}
+
+                    </div>
+
+                  </div>
             </div>
+          </div>
+        </div>
+
+        <!--VISTA SALDO-->
+
+        <div *ngIf="vistaSaldo" class="vistaSaldo">
+          <div class="d-flex justify-content-start mb-4">
+            <button 
+              class="btn regresar-btn"
+              (click)="regresarMenu()">
+              ← Regresar
+            </button>
+          </div>
+          <h2 class="mb-4">Consultar Saldo</h2>
+
+          <div class="saldo-card">
+            <h4 class="nombre-usuario">
+            {{usuarioLogueado.cuenta.usuario.nombre}}
+            {{usuarioLogueado.cuenta.usuario.apellidoPaterno}}
+            {{usuarioLogueado.cuenta.usuario.apellidoMaterno}}
+            </h4>
+            <p class="saldo-label">Saldo disponible</p>
+
+            <h1 class="saldo-cantidad">${{usuarioLogueado.cuenta.saldo}}</h1>
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+ 
