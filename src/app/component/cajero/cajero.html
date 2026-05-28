@@ -10,13 +10,8 @@
       <!-- LOGIN -->
 
       <div *ngIf="!sesionIniciada">
-
         <div class="d-flex justify-content-end mb-3">
-          <button
-          class="btn abrir-cuenta-btn"
-          (click)="abrirCuenta()">
-            Abrir Cuenta
-          </button>
+          <button class="btn abrir-cuenta-btn" (click)="abrirCuenta()">Abrir Cuenta</button>
         </div>
 
         <h2>Bienvenido</h2>
@@ -47,44 +42,22 @@
       <!-- MENU ATM -->
 
       <div *ngIf="sesionIniciada">
-
         <!-- MENU PRINCIPAL -->
 
-        <div *ngIf="!vistaRetiro && !vistaSaldo">
-
+        <div *ngIf="!vistaRetiro && !vistaSaldo && !vistaRecibo">
           <div class="d-flex justify-content-start mb-4">
-
-            <button
-              class="btn cerrar-sesion-btn"
-              (click)="cerrarSesion()">
-
-              ⏻ Cerrar Sesión
-
-            </button>
-
+            <button class="btn cerrar-sesion-btn" (click)="cerrarSesion()">⏻ Cerrar Sesión</button>
           </div>
 
-          <h2>Bienvenido {{usuarioLogueado.cuenta.usuario.nombre}}</h2>
+          <h2>Bienvenido {{ usuarioLogueado.cuenta.usuario.nombre }}</h2>
 
           <p>Selecciona una operación</p>
 
           <div class="d-grid gap-3 mt-4">
+            <button class="btn atm-btn saldo-btn" (click)="verSaldo()">Consultar Saldo</button>
 
-            <button class="btn atm-btn saldo-btn"
-              (click)="verSaldo()">
-              Consultar Saldo
-            </button>
-
-            <button
-              class="btn atm-btn retiro-btn"
-              (click)="abrirRetiro()">
-
-              Retirar Dinero
-
-            </button>
-
+            <button class="btn atm-btn retiro-btn" (click)="abrirRetiro()">Retirar Dinero</button>
           </div>
-
         </div>
 
         <!-- VISTA RETIRO -->
@@ -133,23 +106,10 @@
                 class="form-control retiro-input"
                 placeholder="Ingresa la cantidad"
                 [(ngModel)]="cantidadRetiro"
+                (input)="solamenteNumero($event)"
               />
 
               <button class="btn retirar-btn-final" (click)="retirar()">Retirar</button>
-              <div *ngIf="denominacionesRetiro.length > 0"
-                    class="mt-4">
-
-                    <h4>Denominaciones entregadas</h4>
-
-                    <div
-                      *ngFor="let d of denominacionesRetiro"
-                      class="denominacion-entregada">
-
-                        {{d.cantidad}} x ${{d.valor}}
-
-                    </div>
-
-                  </div>
             </div>
           </div>
         </div>
@@ -158,27 +118,69 @@
 
         <div *ngIf="vistaSaldo" class="vistaSaldo">
           <div class="d-flex justify-content-start mb-4">
-            <button 
-              class="btn regresar-btn"
-              (click)="regresarMenu()">
-              ← Regresar
-            </button>
+            <button class="btn regresar-btn" (click)="regresarMenu()">← Regresar</button>
           </div>
           <h2 class="mb-4">Consultar Saldo</h2>
 
           <div class="saldo-card">
             <h4 class="nombre-usuario">
-            {{usuarioLogueado.cuenta.usuario.nombre}}
-            {{usuarioLogueado.cuenta.usuario.apellidoPaterno}}
-            {{usuarioLogueado.cuenta.usuario.apellidoMaterno}}
+              {{ usuarioLogueado.cuenta.usuario.nombre }}
+              {{ usuarioLogueado.cuenta.usuario.apellidoPaterno }}
+              {{ usuarioLogueado.cuenta.usuario.apellidoMaterno }}
             </h4>
             <p class="saldo-label">Saldo disponible</p>
 
-            <h1 class="saldo-cantidad">${{usuarioLogueado.cuenta.saldo}}</h1>
+            <h1 class="saldo-cantidad">${{ usuarioLogueado.cuenta.saldo }}</h1>
           </div>
         </div>
+
+        <!-- VISTA RECIBO -->
+
+        <div *ngIf="vistaRecibo" class="vistaRecibo">
+          <div class="recibo-card">
+            <h2 class="titulo-recibo">🧾 Recibo de Retiro</h2>
+
+            <hr />
+
+            <div class="recibo-info">
+              <p>
+                <strong>Banco:</strong>
+                {{ banco }}
+              </p>
+
+              <p>
+                <strong>Fecha:</strong>
+                {{ fechaRetiro }}
+              </p>
+
+              <p>
+                <strong>Hora:</strong>
+                {{ horaRetiro }}
+              </p>
+
+              <p>
+                <strong>Monto retirado:</strong>
+                ${{ montoRetirado }}
+              </p>
+
+              <p>
+                <strong>Saldo restante:</strong>
+                ${{ usuarioLogueado.cuenta.saldo }}
+              </p>
+
+              <p>
+                <strong>Cuenta:</strong>
+                ****{{ usuarioLogueado.cuenta.numeroCuenta.slice(-4) }}
+              </p>
+            </div>
+
+            <div class="d-grid mt-4">
+              <button class="btn volver-menu-btn" (click)="regresarMenu()">Volver al menú</button>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
 </div>
- 

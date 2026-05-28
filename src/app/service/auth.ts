@@ -30,4 +30,12 @@ export class Auth {
       withCredentials: true
     })
   }
+
+  logout(): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/Auth/Logout`, {},
+      {
+        withCredentials:true
+      }
+    );
+  }
 }

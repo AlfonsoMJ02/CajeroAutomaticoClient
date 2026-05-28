@@ -273,7 +273,6 @@
 }
 
 .cerrar-sesion-btn{
-
     background-color: #dc2626;
     color: white;
     border: none;
@@ -286,71 +285,96 @@
 }
 
 .cerrar-sesion-btn:hover{
-
     background-color: #ef4444;
-
     transform: scale(1.03);
-
 }
 
 .saldo-card{
-
     background-color: #1f2937;
-
     padding: 30px;
-
     border-radius: 20px;
-
     text-align: center;
-
     box-shadow: 0px 0px 20px rgba(0,0,0,0.4);
-
 }
 
 .nombre-usuario{
-
     color: white;
-
     margin-bottom: 20px;
-
     font-size: 24px;
-
     font-weight: bold;
-
 }
 
 .saldo-label{
-
     color: #9ca3af;
-
     font-size: 18px;
-
     margin-bottom: 10px;
-
 }
 
 .saldo-cantidad{
-
     color: #22c55e;
-
     font-size: 48px;
-
     font-weight: bold;
-
 }
 
 .denominacion-entregada{
-
     background-color:#1f2937;
-
     color:white;
-
     padding:10px;
-
     border-radius:10px;
-
     margin-bottom:10px;
-
     font-weight:bold;
+}
 
+.vistaRecibo{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.recibo-card{
+    width:100%;
+    background:#f8fafc;
+    color:#111827;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0px 0px 20px rgba(0,0,0,0.4);
+    animation: aparecerRecibo 0.4s ease;
+}
+
+.titulo-recibo{
+    text-align:center;
+    margin-bottom:20px;
+    font-weight:bold;
+}
+
+.recibo-info p{
+    margin-bottom:15px;
+    font-size:18px;
+    color: #020617;
+}
+
+.volver-menu-btn{
+    background:#2563eb;
+    color:white;
+    border:none;
+    border-radius:10px;
+    padding:12px;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.volver-menu-btn:hover{
+    background:#1d4ed8;
+    transform:scale(1.03);
+}
+
+@keyframes aparecerRecibo{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
 }

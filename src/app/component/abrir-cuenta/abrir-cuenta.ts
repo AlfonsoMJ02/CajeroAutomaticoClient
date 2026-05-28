@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { CuentaI } from '../../interface/cuenta';
 import { UsuarioS } from '../../service/usuario';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-abrir-cuenta',
@@ -44,9 +45,9 @@ export class AbrirCuenta implements OnInit {
       this.cuenta.banco.idBanco = 1;
     } else if (this.banco == 'Coppel') {
       this.cuenta.banco.idBanco = 2;
-    } else if (this.banco == 'Banamex') {
-      this.cuenta.banco.idBanco = 3;
     } else if (this.banco == 'Santander') {
+      this.cuenta.banco.idBanco = 3;
+    } else if (this.banco == 'Banamex') {
       this.cuenta.banco.idBanco = 4;
     }
   }
@@ -58,12 +59,21 @@ export class AbrirCuenta implements OnInit {
   registrar() {
     this.usuarioS.registrar(this.cuenta).subscribe({
       next: (response) => {
-        alert('Usuario registrado correctamente');
-
-        this.router.navigate(['/cajero', this.banco]);
+        Swal.fire({
+          icon: 'success',
+          title: 'Cuenta creada exitosamente',
+          text: 'Se a enviado un correo electronico con los datos de tu tarjeta',
+          confirmButtonText: 'Ir al cajero'
+        }).then(() => {
+          this.router.navigate(['/cajero', this.banco]);
+        })
       },
       error: (error) => {
-        alert(error.error.errorMessage);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error?.error?.errorMessage || 'Error del servisor'
+        })
       },
     });
   }
