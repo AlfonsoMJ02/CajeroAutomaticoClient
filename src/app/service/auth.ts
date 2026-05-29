@@ -31,6 +31,14 @@ export class Auth {
     })
   }
 
+  cambiarNip(data:any): Observable<any>{
+    return this.http.post<any>(`${this.apiUrl}/Auth/CambiarNip`, data,
+      {
+        withCredentials: true
+      }
+    );
+  }
+
   logout(): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/Auth/Logout`, {},
       {

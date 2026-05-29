@@ -3,6 +3,7 @@ import { UsuarioI } from "./usuario";
 export interface CuentaI {
     usuario: UsuarioI,
     banco: {
-        idBanco: number
+        idBanco: number,
+        nombre: String
     }
 }

@@ -19,12 +19,15 @@ export class Cajero implements OnInit {
   nip: string = '';
   fechaRetiro: string = '';
   horaRetiro: string = '';
+  nuevoNip: string = '';
+  confirmarNip: string = '';
   montoRetirado: number = 0;
 
   sesionIniciada: boolean = false;
   vistaRetiro: boolean = false;
   vistaSaldo: boolean = false;
   vistaRecibo: boolean = false;
+  vistaCambiarNip: boolean = false;
 
   cantidadRetiro: number | null = null;
   usuarioLogueado: any;
@@ -66,14 +69,31 @@ export class Cajero implements OnInit {
     this.auth.login(loginData).subscribe({
       next: (response) => {
         this.usuarioLogueado = response.object;
-        this.sesionIniciada = true;
-        Swal.fire({
-          title: 'Ingresando a la cuenta',
-          icon: 'success',
-          timer: 1000,
-          showConfirmButton: false,
-        });
-        this.cdr.detectChanges();
+
+        if (response.message === 'CAMBIAR_NIP') {
+          this.usuarioLogueado = response.object;
+          this.sesionIniciada = true;
+          this.vistaCambiarNip = true;
+
+          Swal.fire({
+            icon: 'success',
+            title: 'Cambio de NIP requerido',
+            text: 'Este NIP es de un solo uso. Por su seguridad debe cambiarlo para continar',
+            confirmButtonText: 'Entendido',
+          });
+        } else {
+          this.usuarioLogueado = response.object;
+          this.sesionIniciada = true;
+          this.vistaCambiarNip = false;
+
+          Swal.fire({
+            title: 'Ingresando a la cuenta',
+            icon: 'success',
+            timer: 1000,
+            showConfirmButton: false,
+          });
+          this.cdr.detectChanges();
+        }
       },
       error: (error) => {
         this.sesionIniciada = false;
@@ -94,6 +114,7 @@ export class Cajero implements OnInit {
     this.vistaRetiro = false;
     this.vistaSaldo = false;
     this.vistaRecibo = false;
+    this.vistaCambiarNip = false;
   }
 
   verSaldo() {
@@ -102,6 +123,53 @@ export class Cajero implements OnInit {
 
   abrirCuenta() {
     this.router.navigate(['/abrir-cuenta', this.banco]);
+  }
+
+  cambiarNip() {
+    if (this.nuevoNip.length !== 4) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'NIP invalido',
+        text: 'El NIP debe contener 4 digitos',
+      });
+      return;
+    }
+    if (this.nuevoNip !== this.confirmarNip) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oop...',
+        text: 'Los NIP no coinciden',
+      });
+      return;
+    }
+    const data = {
+      idTarjeta: this.usuarioLogueado.idTarjeta,
+      nuevoNip: Number(this.nuevoNip),
+    };
+
+    this.auth.cambiarNip(data).subscribe({
+      next: () => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Nip actualizado correctamente',
+          text: 'La proxima vez que inicies sesión usa este nuevo NIP para ingresar',
+        }).then(() => {
+          this.vistaCambiarNip = false;
+          this.nuevoNip = '';
+          this.confirmarNip = '';
+          this.sesionIniciada = true;
+
+          this.cdr.detectChanges();
+        });
+      },
+      error: (error) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: error?.error?.errorMessage || 'Error del servidor',
+        });
+      },
+    });
   }
 
   retirar() {

@@ -9,7 +9,7 @@
     <div class="atm-screen">
       <!-- LOGIN -->
 
-      <div *ngIf="!sesionIniciada">
+      <div *ngIf="!sesionIniciada && !vistaCambiarNip">
         <div class="d-flex justify-content-end mb-3">
           <button class="btn abrir-cuenta-btn" (click)="abrirCuenta()">Abrir Cuenta</button>
         </div>
@@ -44,7 +44,7 @@
       <div *ngIf="sesionIniciada">
         <!-- MENU PRINCIPAL -->
 
-        <div *ngIf="!vistaRetiro && !vistaSaldo && !vistaRecibo">
+        <div *ngIf="!vistaRetiro && !vistaSaldo && !vistaRecibo && !vistaCambiarNip">
           <div class="d-flex justify-content-start mb-4">
             <button class="btn cerrar-sesion-btn" (click)="cerrarSesion()">⏻ Cerrar Sesión</button>
           </div>
@@ -178,6 +178,38 @@
               <button class="btn volver-menu-btn" (click)="regresarMenu()">Volver al menú</button>
             </div>
           </div>
+        </div>
+
+        <!-- CAMBIAR NIP -->
+
+        <div *ngIf="vistaCambiarNip">
+          <h2>Cambiar NIP</h2>
+
+          <p class="mb-4">Debes cambiar tu NIP temporal para continuar</p>
+
+          <div class="mb-3">
+            <input
+              type="password"
+              class="form-control atm-input"
+              placeholder="Nuevo NIP"
+              maxlength="4"
+              [(ngModel)]="nuevoNip"
+              (input)="solamenteNumero($event)"
+            />
+          </div>
+
+          <div class="mb-4">
+            <input
+              type="password"
+              class="form-control atm-input"
+              placeholder="Confirmar NIP"
+              maxlength="4"
+              [(ngModel)]="confirmarNip"
+              (input)="solamenteNumero($event)"
+            />
+          </div>
+
+          <button class="btn ingresar-btn w-100" (click)="cambiarNip()">Actualizar NIP</button>
         </div>
 
       </div>

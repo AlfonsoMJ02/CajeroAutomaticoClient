@@ -29,6 +29,7 @@ export class AbrirCuenta implements OnInit {
     },
     banco: {
       idBanco: 0,
+      nombre: ''
     },
   };
 
@@ -40,6 +41,8 @@ export class AbrirCuenta implements OnInit {
 
   ngOnInit(): void {
     this.banco = this.route.snapshot.paramMap.get('banco')!;
+
+    this.cuenta.banco.nombre = this.banco;
 
     if (this.banco == 'BBVA') {
       this.cuenta.banco.idBanco = 1;
